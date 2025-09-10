@@ -1,0 +1,17 @@
+services:
+  file-server:
+    build:
+      context: .
+      args:
+        APP_USER: ${APP_USER}
+        APP_PASS: ${APP_PASS}
+    container_name: fileserver
+    volumes:
+      - ./files/:/srv/share/
+      - ./ssh_keys/:/etc/ssh_keys/
+    ports:
+      - "21:21"
+      - "22:22"
+      - "69:69/udp"
+      - "80:80"
+      - "30000-30100:30000-30100"  # passive FTP port range

@@ -1,9 +1,0 @@
-services:
-  file-server:
-    build: .
-    ports:
-      - "21:21"
-      - "22:22"
-      - "69:69/udp"
-      - "80:80"
-      - "443:443"
