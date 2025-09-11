@@ -5,13 +5,17 @@ services:
       args:
         APP_USER: ${APP_USER}
         APP_PASS: ${APP_PASS}
+        FILE_SHARE_DIR: ${FILE_SHARE_DIR}
     container_name: fileserver
     volumes:
-      - ./files/:/srv/share/
+      - ./files/:${FILE_SHARE_DIR}
+      - ./files/:/srv/tftp/
       - ./ssh_keys/:/etc/ssh_keys/
-    ports:
-      - "21:21"
-      - "22:22"
-      - "69:69/udp"
-      - "80:80"
-      - "30000-30100:30000-30100"  # passive FTP port range
+    network_mode: host  # TFTP doesn't play nicely with NAT and port forwarding
+    #ports:
+    #  - "21:21"
+    #  - "22:22"
+    #  - "69:69/udp"
+    #  - "80:80"
+    #  - "10000-10010:10000-10010/udp"  # TFTP data port range
+    #  - "30000-30010:30000-30010"  # passive FTP port range
